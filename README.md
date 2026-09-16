@@ -1,179 +1,203 @@
-# Credit Recovery Curve
+# Credit Recovery Analytics
 
-Projeto de **Data Analytics aplicado à recuperação de crédito**, desenvolvido para analisar a evolução dos valores recuperados após o default e comparar a performance por **produto, perfil de risco, coorte e vintage**.
+**Python · Pandas · Credit Analytics · Recovery Curves · Cohort Analysis · Vintage Analysis · Pytest**
 
-> **Dados 100% sintéticos:** todos os dados foram gerados exclusivamente para fins educacionais e de portfólio. Nenhuma informação representa clientes, contratos ou estratégias reais.
+Projeto educacional de **Business Analytics aplicado a crédito**, desenvolvido com dados 100% sintéticos para analisar o comportamento de recuperação de uma carteira após o default.
 
----
-
-## 🎯 Problema
-
-Após um contrato entrar em default, a recuperação do saldo não ocorre de forma uniforme ao longo do tempo.
-
-A análise da **Recovery Curve** permite entender quanto da exposição é recuperada em diferentes períodos e identificar diferenças de performance entre produtos, perfis de risco e cohorts.
-
-## Objetivo
-
-Investigar:
-
-* Como a recuperação evolui após o default?
-* Quais produtos apresentam maior recuperação?
-* Como o perfil de risco influencia a recuperação?
-* Quais cohorts apresentam melhor performance?
-* Em quanto tempo a carteira atinge 50% de recuperação?
-* As novas vintages apresentam evolução de performance?
+> Nenhum dado real de clientes, contratos ou empresas é utilizado.
 
 ---
 
-## 📊 Principais métricas
+## 🔎 Problema
 
-### Recovery Rate
+Analisar como uma carteira inadimplente recupera seu saldo ao longo do tempo e identificar diferenças entre **produtos, grupos de risco e safras**.
 
-Percentual do saldo originalmente em default que foi recuperado ao longo do tempo.
+---
+
+## 🔄 Pipeline
+
+```text
+Synthetic Data
+      ↓
+Data Quality
+      ↓
+First Default
+      ↓
+Exposure at Default
+      ↓
+Recovery Events
+      ↓
+Recovery Curve
+      ↓
+Product / Risk Analysis
+      ↓
+Cohort Analysis
+      ↓
+Vintage Analysis
+      ↓
+Business Insights
+```
+
+---
+
+## 📊 Principais Resultados
+
+| Indicador            |   Resultado |
+| -------------------- | ----------: |
+| Contratos em default |       5.978 |
+| Exposure at Default  | R$ 68,06 mi |
+| Recuperado           | R$ 36,55 mi |
+| Recovery Rate @ 180d |      52,21% |
+| Recovery Rate @ 360d |      53,71% |
+| Tempo para 50%       |    180 dias |
 
 ### Recovery Curve
 
-Evolução acumulada da recuperação após o default.
-
-### Recovery Rate por período
-
-Comparação da recuperação acumulada em:
-
-**30d · 60d · 90d · 120d · 180d · 360d**
-
-### Cohort Analysis
-
-Comparação da recuperação entre grupos de contratos que entraram em default em diferentes períodos.
-
-### Vintage Analysis
-
-Avaliação da evolução da performance entre diferentes vintages de default.
+| Horizonte | Recovery Rate |
+| --------: | ------------: |
+|       30d |        15,68% |
+|       60d |        28,30% |
+|       90d |        38,47% |
+|      120d |        46,48% |
+|      180d |        52,21% |
+|      360d |        53,71% |
 
 ---
 
-## 🔎 Dimensões analisadas
+## 💳 Recovery por Produto
 
-### Produtos
-
-* Personal Loan
-* Vehicle Finance
-* Credit Card
-* Payroll Loan
-
-### Perfil de risco
-
-* LOW
-* MEDIUM
-* HIGH
-
-### Outras dimensões
-
-* Cohort
-* Vintage
-* Dias desde o default
-* Valor em default
-* Valor recuperado
+| Produto         | Recovery @ 180d |
+| --------------- | --------------: |
+| Payroll Loan    |          55,62% |
+| Vehicle Finance |          53,01% |
+| Personal Loan   |          52,16% |
+| Credit Card     |          42,60% |
 
 ---
 
-## 🧠 Perguntas de negócio
+## ⚠️ Recovery por Risco
 
-O projeto foi estruturado para responder perguntas como:
+| Risk Band | Recovery @ 180d |
+| --------- | --------------: |
+| LOW       |          58,15% |
+| MEDIUM    |          50,78% |
+| HIGH      |          41,53% |
 
-> **Qual produto apresenta a melhor recuperação acumulada após 180 dias?**
-
-> **Clientes de maior risco apresentam recuperação significativamente menor?**
-
-> **Qual cohort atinge 50% de recuperação mais rapidamente?**
-
-> **As vintages mais recentes apresentam melhora ou deterioração na curva de recuperação?**
-
-> **Em qual período ocorre a maior concentração dos eventos de recuperação?**
+> Resultados exclusivamente referentes ao dataset sintético.
 
 ---
 
-## 📈 Insights
+## 📈 Visualizações
 
-Os resultados das análises são apresentados por meio de curvas de recuperação, comparações entre produtos, perfis de risco, cohorts e vintages.
+![Recovery Curve](outputs/recovery_curve.png)
 
-> **Os insights apresentados são baseados exclusivamente nos dados sintéticos gerados pelo projeto e não representam comportamento real de carteiras de crédito.**
+![Recovery by Product](outputs/recovery_by_product.png)
+
+![Recovery by Risk](outputs/recovery_by_risk.png)
+
+![Cohort Analysis](outputs/cohort_analysis.png)
 
 ---
 
-## 🏗️ Estrutura do projeto
+## 🧮 Métrica Principal
+
+```text
+Recovery Rate = Recovered Amount / Exposure at Default
+```
+
+O **Exposure at Default** é estimado a partir do valor das parcelas e do saldo programado após o primeiro default.
+
+A definição possui finalidade **didática** e não representa metodologia regulatória.
+
+---
+
+## 🧠 Análises
+
+* **Recovery Curve** — evolução da recuperação em diferentes horizontes.
+* **Product Analysis** — comparação entre produtos.
+* **Risk Analysis** — comparação entre faixas de risco.
+* **Cohort Analysis** — comportamento das safras trimestrais.
+* **Vintage Analysis** — recuperação mensal por maturidade.
+* **Data Quality** — validações de consistência e unicidade.
+
+---
+
+## 🗂️ Estrutura
 
 ```text
 Credit-Recovery-Curve/
-│
-├── README.md
-├── requirements.txt
-├── main.py
-│
 ├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── src/
-│   ├── data_generator.py
-│   ├── data_cleaning.py
-│   ├── recovery_metrics.py
-│   ├── cohort_analysis.py
-│   └── analysis.py
-│
 ├── notebooks/
 ├── outputs/
-└── tests/
+├── src/
+│   ├── analysis.py
+│   ├── cohort_analysis.py
+│   ├── data_cleaning.py
+│   ├── data_generator.py
+│   └── recovery_metrics.py
+├── tests/
+├── main.py
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## 📦 Dados sintéticos
+## 🚀 Execução
 
-O projeto trabalha com aproximadamente:
-
-* **10.000 clientes**
-* **15.000 contratos**
-* **150.000 parcelas**
-* Eventos de recuperação
-
-Os dados foram gerados artificialmente para reproduzir uma estrutura semelhante à encontrada em análises de recuperação de crédito, sem utilizar informações reais.
-
----
-
-## 🛠️ Tecnologias
-
-**Python · Pandas · NumPy · Matplotlib · Seaborn · Pytest**
-
-### Em evolução
-
-**SQL / DuckDB · Power BI · AWS S3 · Amazon Athena**
-
----
-
-## 🚀 Evolução planejada
-
-O projeto foi estruturado para evoluir de uma análise local em Python para uma solução analítica mais completa:
-
-```text
-Dados sintéticos
-       ↓
-Python / Pandas
-       ↓
-SQL / DuckDB
-       ↓
-AWS S3
-       ↓
-Amazon Athena
-       ↓
-Power BI
+```bash
+python -m venv .venv
 ```
 
-Essa evolução permitirá separar as etapas de **geração, armazenamento, transformação, análise e visualização dos dados**.
+**Windows:**
+
+```bash
+.venv\Scripts\activate
+```
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Execute:
+
+```bash
+python main.py
+```
+
+Testes:
+
+```bash
+pytest -q
+```
 
 ---
 
-## ⚠️ Disclaimer
+## 🛠️ Stack
 
-Este projeto possui finalidade exclusivamente educacional e de portfólio.
+**Python · Pandas · NumPy · Matplotlib · Pytest · Jupyter**
 
-Os dados, resultados e padrões apresentados são sintéticos e não devem ser utilizados para decisões reais de crédito, cobrança ou recuperação.
+Conceitos:
+
+**Data Analytics · Credit Analytics · Data Quality · Recovery Rate · EAD · Segmentation · Cohort Analysis · Vintage Analysis**
+
+---
+
+## ⚠️ Limitações
+
+* Dados totalmente sintéticos.
+* EAD utilizado de forma didática.
+* Não representa metodologia regulatória.
+* Não inclui modelos preditivos ou estratégias de cobrança.
+
+---
+
+## 📌 Objetivo
+
+Demonstrar um pipeline completo de:
+
+**Data Analytics → Credit Analytics → Business Metrics → Segmentation → Temporal Analysis → Business Insights**
+
+> Projeto educacional desenvolvido exclusivamente com dados sintéticos.
